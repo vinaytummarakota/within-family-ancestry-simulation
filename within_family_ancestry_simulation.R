@@ -12,6 +12,9 @@ father_chromosome_lengths <- c(
   0.96, 0.81, 0.51, 0.49
 )
 
+# Set seed for reproducibility
+set.seed(42)
+
 generate_ancestry_proportion <- function(chromosome_lengths) {
   # intialize length of chromosomal segments that belong to the focal ancestry group to be zero
   focal_ancestry_length = 0
@@ -43,9 +46,7 @@ generate_sibling_ancestry_proportion <- function() {
 }
 
 
-
-
-N = 10000 
+N = 100000
 
 sibship_deviations <- c()
 sib1_ancestries <- c()

@@ -6,8 +6,8 @@ set.seed(42)
 n_sim        <- 10000
 ancestry_var <- 0.001291 # Within-family variance from paper
 residual_var <- 1.424   # Within-family residual variance from paper
-beta_true    <- 1.35     # Minimum effect size of interest
-n            <- 4745     # Number of pairs
+beta_true    <- 2.7     # Minimum effect size of interest
+n            <- 1186     # Number of pairs
 
 # we test 3 different implementations of sibship fixed effects: the implementation in the fixest package, the implementation of the demeaned regression (using one observation from each pair), and the sibling differences implementation
 beta <- list(
@@ -18,6 +18,11 @@ beta <- list(
 
 p_values <- list(
   "fixest" = numeric(n_sim), 
+  "demeaned" = numeric(n_sim), 
+  "sib_diff" = numeric(n_sim)
+)
+
+r <- list(
   "demeaned" = numeric(n_sim), 
   "sib_diff" = numeric(n_sim)
 )
@@ -58,6 +63,7 @@ for(i in 1:n_sim) {
 
   beta$demeaned[i] <- coeftable(demeaned_model)["ancestry", "Estimate"]
   p_values$demeaned[i] <- coeftable(demeaned_model)["ancestry", "Pr(>|t|)"]
+  r$demeaned[i] <- cor(demeaned_df$ancestry, demeaned_df$iq)
 
   # sibling differences model 
   sib_diff_df <- data.frame(
@@ -69,8 +75,9 @@ for(i in 1:n_sim) {
 
   beta$sib_diff[i] <- coeftable(sib_diff_model)["ancestry", "Estimate"]
   p_values$sib_diff[i] <- coeftable(sib_diff_model)["ancestry", "Pr(>|t|)"]
+  r$sib_diff[i] <- cor(sib_diff_df$ancestry, sib_diff_df$iq)
 }
 
 print(paste("[Fixest] Average Estimate: ", mean(beta$fixest), " Empirical Power:", mean(p_values$fixest < 0.05)))
-print(paste("[Demeaned Regression] Average Estimate: ", mean(beta$demeaned), " Empirical Power:", mean(p_values$demeaned < 0.05)))
-print(paste("[Sibling Differences] Average Estimate: ", mean(beta$sib_diff), " Empirical Power:", mean(p_values$sib_diff < 0.05)))
+print(paste("[Demeaned Regression] Average Estimate: ", mean(beta$demeaned), " Empirical Power:", mean(p_values$demeaned < 0.05), "Within-Family Correlation: ", mean(r$demeaned)))
+print(paste("[Sibling Differences] Average Estimate: ", mean(beta$sib_diff), " Empirical Power:", mean(p_values$sib_diff < 0.05), "Within-Family Correlation: ", mean(r$sib_diff)))

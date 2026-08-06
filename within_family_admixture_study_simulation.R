@@ -4,10 +4,10 @@ library(fixest)
 set.seed(42)
 
 n_sim        <- 10000
-ancestry_var <- 0.001291 # Within-family variance from paper
-residual_var <- 1.424   # Within-family residual variance from paper
-beta_true    <- 2.7     # Minimum effect size of interest
-n            <- 1186     # Number of pairs
+ancestry_var <- 0.001291 # Maximum possible within-family variance from derivations
+residual_var <- 0.3541   # Within-family residual variance of IQ in the UK Biobank
+beta_true    <- 1.35     # Minimum effect size of interest in standard deviation units
+n            <- 1180     # Number of pairs
 
 # we test 3 different implementations of sibship fixed effects: the implementation in the fixest package, the implementation of the demeaned regression (using one observation from each pair), and the sibling differences implementation
 beta <- list(

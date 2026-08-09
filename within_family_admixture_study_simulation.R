@@ -4,7 +4,7 @@ library(fixest)
 set.seed(42)
 
 n_sim        <- 10000
-ancestry_var <- 0.001291 # Maximum possible within-family variance from derivations
+ancestry_var <- 0.001291 # Maximum possible within-family variance from derivations (where within-family variance is calculated based on deviation from sibship mean ancestry proportion)
 residual_var <- 0.3541   # Within-family residual variance of IQ in the UK Biobank
 beta_true    <- 1.35     # Minimum effect size of interest in standard deviation units
 n            <- 1180     # Number of pairs

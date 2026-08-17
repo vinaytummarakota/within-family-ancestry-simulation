@@ -33,7 +33,6 @@ for(i in 1:n_sim) {
   
   sib1_ancestries <- 0.5 + dev_ancestry
   sib2_ancestries <- 0.5 - dev_ancestry
-  sib1_ancestry
   
   sib1_residuals <- dev_residual
   sib2_residuals <- -dev_residual
@@ -43,7 +42,7 @@ for(i in 1:n_sim) {
   
   # fixest model
   fixed_effects_df <- data.frame(
-    sibship_id = rep(1:n, each = 2),
+    sibship_id = rep(1:n, times = 2),
     iq        = c(sib1_iqs, sib2_iqs),
     ancestry  = c(sib1_ancestries, sib2_ancestries)
   )

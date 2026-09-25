@@ -49,6 +49,7 @@ generate_sibling_ancestry_proportion <- function() {
 N = 100000
 
 sibship_deviations <- c()
+parental_deviations <- c()
 sib1_ancestries <- c()
 sib2_ancestries <- c()
 
@@ -61,7 +62,12 @@ for(n in 1:N) {
   sib1_ancestries <- c(sib1_ancestries, sib1_ancestry)
   sib2_ancestries <- c(sib2_ancestries, sib2_ancestry)
   sibship_deviations <- c(sibship_deviations, sib1_ancestry - sibship_avg_ancestry, sib2_ancestry - sibship_avg_ancestry)
+  parental_deviations <- c(parental_deviations, sib1_ancestry - 0.5, sib2_ancestry - 0.5)
+
 }
 
 variance_sibship_deviation <- var(sibship_deviations)
 sprintf("Within-Family Variance in Ancestry: %.6f", variance_sibship_deviation)
+
+variance_parental_deviation <- var(parental_deviations)
+sprintf("Within-Family Variance in Ancestry: %.6f", variance_parental_deviation)

@@ -121,6 +121,11 @@ ggplot(power_curve_df, aes(x = sib_corrs, y = within_family_sds))+
     linetype = "dashed"
   )+
   annotate("text", x = 0.28, y = Inf, label = "UK Biobank Sibling Correlation\nin Fluid Intelligence Score", hjust = 0.5, vjust = -0.5)+
+  geom_vline(
+    xintercept = 0.607, 
+    linetype = "dashed"
+  )+
+  annotate("text", x = 0.607, y = Inf, label = "UK Biobank Test-Retest Correlation\nin Fluid Intelligence Score", hjust = 0.5, vjust = -0.5)+
   geom_rect(
     xmin = -Inf, 
     xmax = Inf, 
